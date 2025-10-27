@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  pug:
+    build: .
+    container_name: cs16_pug
+    network_mode: host
+    working_dir: /cs16
+    environment:
+      GAME_PORT: 27017
+      CLIENT_PORT: 27007
+      TV_PORT: 27022
+      MAX_PLAYERS: 16
+    volumes:
+      - ./instances/pug/cs16:/cs16
+      - ./instances/pug/sdk32:/root/.steam/sdk32:ro
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+  classic:
+    build: .
+    container_name: cs16_classic
+    network_mode: host
+    working_dir: /cs16
+    environment:
+      GAME_PORT: 27015
+      CLIENT_PORT: 27005
+      TV_PORT: 27020
+      MAX_PLAYERS: 32
+    volumes:
+      - ./instances/classic/cs16:/cs16
+      - ./instances/classic/sdk32:/root/.steam/sdk32:ro
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+#  zombie:
+#    build: .
+#    container_name: cs16_zombie
+#    network_mode: host
+#    working_dir: /cs16
+#    environment:
+#      GAME_PORT: 27019
+#      CLIENT_PORT: 27009
+#      TV_PORT: 27024
+#    volumes:
+#      - ./instances/zombie/cs16:/cs16
+#      - ./instances/zombie/sdk32:/root/.steam/sdk32:ro
+#    restart: unless-stopped
+#    stdin_open: true
+#    tty: true
